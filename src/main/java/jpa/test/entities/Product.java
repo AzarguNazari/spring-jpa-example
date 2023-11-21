@@ -1,4 +1,4 @@
-package spring.jpa.examples.springjpaexamples.entities;
+package jpa.test.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,10 +10,13 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-public class Person {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
+
+    private String name;
+    private double price;
+
+    // Constructors, getters, setters...
 }

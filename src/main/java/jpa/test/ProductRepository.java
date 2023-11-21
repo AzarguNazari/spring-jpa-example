@@ -1,7 +1,7 @@
-package spring.jpa.examples.springjpaexamples;
+package jpa.test;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import spring.jpa.examples.springjpaexamples.entities.Product;
+import jpa.test.entities.Product;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long>
@@ -10,6 +10,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>
     long countByPriceGreaterThan(double price);
     long deleteByPriceLessThan(double price);
     List<Product> findFirst3ByPriceGreaterThan(double price);
-    List<String> findDistinctNameBy();
 
 }

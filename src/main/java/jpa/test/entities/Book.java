@@ -1,4 +1,4 @@
-package spring.jpa.examples.springjpaexamples.entities;
+package jpa.test.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,12 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
 @Setter
 @Getter
+@ToString
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,4 @@ public class Book {
     private String title;
     private String author;
     private LocalDate publishedDate;
-
-    // Constructors, getters, setters...
 }

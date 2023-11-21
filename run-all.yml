@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: openHr
+  minio:
+    image: minio/minio:latest
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "miniopassword"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "test", "-z", "$(cat /data/healthcheck.txt)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+  openHr-backend:
+    image: openhr:0.0.1-SNAPSHOT
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/openHr
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      minio.url: http://minio:9000
+      minio.access-key: minioadmin
+      minio.secret-key: minioadmin
+    depends_on:
+      - minio
+      - postgres
+    ports:
+      - "8080:8080"  # Expose the Spring Boot app's port if needed
+
+volumes:
+  minio-data:
